@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
+docker_builder:
+  name: Test ${INSTANCE}
+  env:
+    matrix:
+      - INSTANCE: default-centos-8-master-py3
+      - INSTANCE: default-centos-8-2019-2-py3
+      - INSTANCE: default-centos-7-2019-2-py2
+      - INSTANCE: default-centos-7-2018-3-py2
+  bundle_install_script: bundle install
+  verify_script:
+    - bin/kitchen verify ${INSTANCE}
