@@ -35,4 +35,10 @@ wait_online:
   service.running:
     - name: systemd-networkd-wait-online
     - enable: True
+  cmd.run:
+    - name: |
+        systemctl status systemd-networkd-wait-online.service
+        journalctl -xe
+    - onfail:
+      - service: wait_online
 {%- endif %}
