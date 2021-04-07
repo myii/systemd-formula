@@ -121,6 +121,11 @@ systemd:
 
   ## networkd
   networkd:
+    fileattr:
+      eth0.network:
+        user: systemd-network
+        group: systemd-network
+        mode: "0600"
     profiles:
       network:
         # eth0.network

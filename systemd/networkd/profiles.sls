@@ -6,19 +6,23 @@
 {%- set profiles = networkd.get('profiles', {}) %}
 
 include:
-  - .reload
+  - systemd.networkd.reload
 
-{% if profiles is mapping %}
-{% for networkdprofile, types in profiles.items()  %}
-  {% for profile, profileconfig in types.items() %}
+{%- if profiles is mapping %}
+{%- for networkdprofile, types in profiles.items()  %}
+  {%- for profile, profileconfig in types.items() %}
+  {%- set filename = profile ~ "." ~ networkdprofile %}
+  {%- set user = networkd.fileattr.get(filename, {}).user | default("root") %}
+  {%- set group = networkd.fileattr.get(filename, {}).group | default("root") %}
+  {%- set mode = networkd.fileattr.get(filename, {}).mode | default("0644") %}
 
-/etc/systemd/network/{{ profile }}.{{ networkdprofile }}:
+/etc/systemd/network/{{ filename }}:
   file.managed:
     - template: jinja
     - source: salt://systemd/networkd/templates/profile.jinja
-    - user: root
-    - group: root
-    - mode: '0644'
+    - user: {{ user }}
+    - group: {{ group }}
+    - mode: {{ mode }}
     - makedirs: true
     - dir_mode: 755
     - context:

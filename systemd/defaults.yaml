@@ -20,6 +20,7 @@ systemd:
 
   networkd:
     pkg: {}
+    fileattr: {}
     path: /etc/systemd/network
     service: systemd-networkd
     wait_online: true
