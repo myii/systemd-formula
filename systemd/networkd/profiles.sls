@@ -6,7 +6,7 @@
 {%- set profiles = networkd.get('profiles', {}) %}
 
 include:
-  - systemd.reload
+  - .reload
 
 {% if profiles is mapping %}
 {% for networkdprofile, types in profiles.items()  %}
@@ -24,7 +24,7 @@ include:
     - context:
         config: {{ profileconfig|json }}
     - watch_in:
-      - cmd: reload_systemd_configuration
-  {% endfor %}
-{% endfor %}
-{% endif %}
+      - cmd: systemd-networkd-reload-cmd-wait
+  {%- endfor %}
+{%- endfor %}
+{%- endif %}
