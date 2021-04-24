@@ -122,16 +122,16 @@ systemd:
   ## networkd
   networkd:
     fileattr:
-      eth0.network:
+      br0.network:
         user: systemd-network
         group: systemd-network
         mode: "0600"
     profiles:
       network:
-        # eth0.network
-        eth0:
+        # br0.network
+        br0:
           - Match:
-              - Name: eth0
+              - Name: br0
           - Network:
               - DHCP: "yes"
 
