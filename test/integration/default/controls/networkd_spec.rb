@@ -1,13 +1,21 @@
 # frozen_string_literal: true
 
+owner_and_group =
+  case system.platform[:finger]
+  when 'amazonlinux-2', 'centos-7'
+    'systemd-network'
+  else
+    'root'
+  end
+
 control 'Systemd Networkd' do
   title 'should match desired lines'
 
   describe file('/etc/systemd/network') do
     its('type') { should eq :directory }
     its('mode') { should cmp '0755' }
-    its('owner') { should eq 'root' }
-    its('group') { should eq 'root' }
+    its('owner') { should eq owner_and_group }
+    its('group') { should eq owner_and_group }
   end
 
   describe file('/etc/systemd/network/99-default.link') do
