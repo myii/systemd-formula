@@ -1,0 +1,11 @@
+---
+name: 'systemd-formula'
+title: 'systemd-formula'
+version: '0.19.0'
+start_page: 'README.adoc'
+nav:
+  - 'modules/ROOT/nav-repo-docs.adoc'
+  - 'modules/ROOT/nav-explanations.adoc'
+  - 'modules/ROOT/nav-guides.adoc'
+  - 'modules/ROOT/nav-references.adoc'
+  - 'modules/ROOT/nav-tutorials.adoc'
